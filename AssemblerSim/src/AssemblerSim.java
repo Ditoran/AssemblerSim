@@ -88,7 +88,6 @@ import eastereggs.TrollingWindow;
  *         Felder gehen von 48 bis 127 (30h bis 7Fh) -> 80 Speicherzellen
  * 
  * 
- * 
  *         To Do:
  * 
  *         -pop
