@@ -102,7 +102,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 
     private boolean taster1, taster2 = false;
     boolean segmentOn = true;
-    private int i = 0; // Zeiger fuer Hauptschleife
+    private int i = 0; // Pointer for main loop
     private boolean running = true; // Wenn false, bricht Thread ab
     int loading = 0;
 
