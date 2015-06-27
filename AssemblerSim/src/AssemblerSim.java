@@ -80,7 +80,7 @@ import eastereggs.TrollingWindow;
  * 
  *         Kleinere Features: - Leerzeichen am Anfang und Kommentare im Code
  *         werden entfernt - P1 - interner RAM - Interrupts mit P3.2 und P3.3 -
- *         Poti - Timer 0 & Timer 1 - DATA und EQU (Register und Konstanten benennen) - 
+ *         Poti - Timer 0 & Timer 1 - DATA und EQU (Register und Konstanten benennen)
  * 
  * 
  *         Zu dem RAM-Speicher:
