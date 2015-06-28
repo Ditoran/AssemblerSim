@@ -35,7 +35,7 @@ public class CpuSpeedPanel extends JPanel {
 		+ "um AssemblerSim in Echtzeit zu simulieren.<br />"
 		+ "Das Programm wird minimal langsamer laufen.<br />"
 		+ "Bitte beachte, dass du z.B. bei Timern oder Warteschleifen die Zeiten bis "
-		+ "zur AuslÃ¶sung anpasst.</body></html>");
+		+ "zur Auslösung anpasst.</body></html>");
 	add(label, BorderLayout.PAGE_START);
 	check = new JCheckBox();
 	check.setBounds(100, 170, 160, 20);

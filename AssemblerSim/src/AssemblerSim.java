@@ -595,7 +595,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			    && !f.getName().equals(".asm")) {
 			int response = JOptionPane.showConfirmDialog(null,
 				f.getName()
-					+ " existiert bereits. Ãœberschreiben?",
+					+ " existiert bereits. &Uumlberschreiben?",
 				"Fortfahren", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE);
 			if (response == JOptionPane.NO_OPTION) {
@@ -676,7 +676,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	// Edit Menue
 	JMenu editmenu = new JMenu("Bearbeiten");
 	mbar.add(editmenu);
-	final JMenuItem menuundo = new JMenuItem("RÃ¼ckgÃ¤ngig");
+	final JMenuItem menuundo = new JMenuItem("Rückgängig");
 	editmenu.add(menuundo);
 	menuundo.setIcon(new ImageIcon(this.getClass().getResource(
 		"/icons/undo.gif")));
@@ -732,7 +732,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		codebox.copy();
 	    }
 	});
-	final JMenuItem menupaste = new JMenuItem("EinfÃ¼gen");
+	final JMenuItem menupaste = new JMenuItem("Einfügen");
 	editmenu.add(menupaste);
 	menupaste.setIcon(new ImageIcon(this.getClass().getResource(
 		"/icons/paste.gif")));
@@ -744,7 +744,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		undomgr.addToQueue(codebox.getText());
 	    }
 	});
-	JMenuItem menudelete = new JMenuItem("LÃ¶schen");
+	JMenuItem menudelete = new JMenuItem("Löschen");
 	editmenu.add(menudelete);
 	menudelete.setIcon(new ImageIcon(this.getClass().getResource(
 		"/icons/delete.gif")));
@@ -824,7 +824,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	// Tools Menue
 	JMenu tools = new JMenu("Werkzeuge");
 	mbar.add(tools);
-	JMenuItem resetram = new JMenuItem("RAM zurÃ¼cksetzen");
+	JMenuItem resetram = new JMenuItem("RAM zurücksetzen");
 	tools.add(resetram);
 	resetram.setIcon(new ImageIcon(this.getClass().getResource(
 		"/icons/resetram.gif")));
@@ -922,7 +922,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		new ChangelogDialog();
 	    }
 	});
-	JMenuItem about = new JMenuItem("Ãœber...");
+	JMenuItem about = new JMenuItem("Über...");
 	infomenu.add(about);
 	about.setIcon(new ImageIcon(this.getClass().getResource(
 		"/icons/about.gif")));
@@ -959,7 +959,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	toolbar.add(toolbarNew);
 	toolbar.addSeparator(new Dimension(4, 16));
 	JButton toolbarOpen = new JButton();
-	toolbarOpen.setToolTipText("Ã–ffnen");
+	toolbarOpen.setToolTipText("Öffnen");
 	toolbarOpen.setMargin(new Insets(0, 4, 0, 4));
 	toolbarOpen.setBorder(BorderFactory.createEmptyBorder());
 	toolbarOpen.setIcon(new ImageIcon(this.getClass().getResource(
@@ -1035,7 +1035,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	toolbar.add(toolbarCopy);
 	toolbar.addSeparator(new Dimension(4, 16));
 	JButton toolbarPaste = new JButton();
-	toolbarPaste.setToolTipText("EinfÃ¼gen");
+	toolbarPaste.setToolTipText("Einfügen");
 	toolbarPaste.setMargin(new Insets(0, 4, 0, 4));
 	toolbarPaste.setBorder(BorderFactory.createEmptyBorder());
 	toolbarPaste.setIcon(new ImageIcon(this.getClass().getResource(
@@ -1051,7 +1051,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	toolbar.add(new JLabel(new ImageIcon(this.getClass().getResource(
 		"/icons/separator.gif"))));
 	JButton toolbarUndo = new JButton();
-	toolbarUndo.setToolTipText("RÃ¼ckgÃ¤ngig");
+	toolbarUndo.setToolTipText("Rückgängig");
 	toolbarUndo.setMargin(new Insets(0, 4, 0, 4));
 	toolbarUndo.setBorder(BorderFactory.createEmptyBorder());
 	toolbarUndo.setIcon(new ImageIcon(this.getClass().getResource(
@@ -1082,7 +1082,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	toolbar.add(new JLabel(new ImageIcon(this.getClass().getResource(
 		"/icons/separator.gif"))));
 	fontsizeSpinner = new JSpinner(new SpinnerNumberModel(12, 8, 24, 1));
-	fontsizeSpinner.setToolTipText("SchriftgrÃ¶ÃŸe");
+	fontsizeSpinner.setToolTipText("Schriftgröße");
 	fontsizeSpinner.addChangeListener(new ChangeListener() {
 
 	    @Override

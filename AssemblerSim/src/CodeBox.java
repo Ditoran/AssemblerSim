@@ -36,8 +36,8 @@ public class CodeBox extends JDialog {
 	private JPopupMenu jpm = new JPopupMenu();
 	private JMenuItem JPopupCut = new JMenuItem("Ausschneiden");
 	private JMenuItem JPopupCopy = new JMenuItem("Kopieren");
-	private JMenuItem JPopupPaste = new JMenuItem("Einfï¿½gen");
-	private JMenuItem JPopupDelete = new JMenuItem("LÃ¶schen");
+	private JMenuItem JPopupPaste = new JMenuItem("Einfügen");
+	private JMenuItem JPopupDelete = new JMenuItem("Löschen");
 	private JMenuItem JPopupSelectAll = new JMenuItem(
 			"Alles markieren");
 	AssemblerSim a;
@@ -61,7 +61,7 @@ public class CodeBox extends JDialog {
 		codeTextArea = (JEditorPane) new Syntax(12).getEditPane();
 		codeTextArea.setText(a.codebox.getText());
 		codeScrollBox = new JScrollPane(codeTextArea);
-		// Kontextmenï¿½ Start
+		// Kontextmenü Start
 		codeTextArea.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent evt) {
 				if (evt.isPopupTrigger()) {
@@ -137,7 +137,7 @@ public class CodeBox extends JDialog {
 
 		close.setBounds(400, 525, 190, 20);
 		close.setMargin(new Insets(5, 5, 5, 5));
-		close.setText("Ãœbernehmen & SchlieÃŸen");
+		close.setText("Übernehmen & Schließen");
 		cp.add(close);
 		close.addActionListener(new ActionListener() {
 

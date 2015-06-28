@@ -35,7 +35,7 @@ public class AboutDialog extends JDialog {
 
 	public AboutDialog(String programVersion) {
 
-		setTitle("Ãœber AssemblerSim");
+		setTitle("Über AssemblerSim");
 		int width = 300;
 		int height = 200;
 		setSize(width, height);
