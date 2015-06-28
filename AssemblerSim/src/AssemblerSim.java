@@ -80,13 +80,12 @@ import eastereggs.TrollingWindow;
  * 
  *         Kleinere Features: - Leerzeichen am Anfang und Kommentare im Code
  *         werden entfernt - P1 - interner RAM - Interrupts mit P3.2 und P3.3 -
- *         Poti - Timer 0 & Timer 1 - DATA und EQU - 
+ *         Poti - Timer 0 & Timer 1 - DATA und EQU (Register und Konstanten benennen)
  * 
  * 
  *         Zu dem RAM-Speicher:
  * 
  *         Felder gehen von 48 bis 127 (30h bis 7Fh) -> 80 Speicherzellen
- * 
  * 
  * 
  *         To Do:
@@ -103,7 +102,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 
     private boolean taster1, taster2 = false;
     boolean segmentOn = true;
-    private int i = 0; // Zeiger fuer Hauptschleife
+    private int i = 0; // Pointer for main loop
     private boolean running = true; // Wenn false, bricht Thread ab
     int loading = 0;
 
