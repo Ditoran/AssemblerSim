@@ -1,0 +1,144 @@
+﻿Changelog
+========= 
+17.06.2015
+- Anzeigefehler in den Textpanels behoben
+
+03.05.2015
+- Debug-Modus: Einzelschritt hinzugefügt
+- Befehle "EQU" und "DATA" hinzugefügt
+- Der linke Rand eines gedruckten Dokuments ist nun breiter
+- Markierte Zeilen können auskommentiert jetzt werden
+
+26.04.2015
+- Vorbereitungen für Debug-Funktion
+- laufende Programme können jetzt auch pausiert werden
+
+26.03.2015
+- Kleine Fehler behoben
+
+27.05.2014
+- Error-Log: Fehler werden jetzt dokumentiert
+
+13.04.2014:
+- Neustart-Probleme behoben
+- Toolbar standardmäßig aktiviert
+
+30.03.2014:
+- Fehler im Einstellungs-Fenster behoben
+
+04.03.2014:
+- Bug in 7-Segmentanzeige bei Ansteuerung einzelner Bits behoben
+- TrayIcon hinzugefügt
+- Drucken-Funktion hinzugefügt
+- Toolbar hinzugefügt
+- Schriftgröße des Eingabefeldes einstellbar
+- Reset-Button in Stop-Button umbenannt
+- Reset-Button hinzugefügt
+
+03.03.2014:
+- Bugreporter verbessert
+- "Rückgängig/Wiederholen"-Funktion hinzugefügt
+- einige Anpassungen an der GUI
+- Programmneustart eingefügt
+
+17.02.2014:
+- Credits hinzugefügt
+- diverse Fehler behoben
+
+23.12.2013:
+- Problem mit Hex-Zahlen behoben
+- Sichtbarkeitsfehler der Texte in Buttons des Designs "Nimbus" behoben
+
+06.12.2013:
+- Kleinere Probleme behoben
+
+23.11.2013:
+- Probleme mit dem Code Checker behoben
+
+16.11.2013:
+- Syntax-Highlighter hinzugefügt (JSoup basierend, Code von Rob Camick)
+
+10.11.2013:
+- Splash-Screen hinzugefügt
+- CPU-Überprüfung jetzt abschaltbar
+- weitere Fehlererkennungsmaßnahmen wurden hinzugefügt
+
+09.11.2013:
+- Weitere Fehlererkennungsmaßnahmen wurden eingebaut:
+	- Groß-/Kleinschreibung der Register, LEDs, Adressen
+	- Auf ein Komma muss nich mehr zwingend ein Leerzeichen folgen
+
+06.11.2013:
+- Autokorrektur für fehlerhaft eingegebenen Code verbessert
+
+14.10.2013:
+- Fehler in der Nummerierung der Display-Felder behoben
+
+12.10.2013:
+- Bugreport und Updater mit neuer Website gekoppelt
+
+08.09.2013:
+- Timer 0 and Timer 1 hinzugefügt
+
+29.07.2013:
+- Programm auf Deutsch umgestellt
+
+09.07.2013:
+- einige Performanceprobleme des Displays behoben
+
+06.07.2013:
+- LCD-Display hinzugefügt
+- Probleme mit "lcall" behoben
+
+23.06.2013:
+- neues Einstellungs-Management
+- Updater hinzugefügt
+
+16.06.2013:
+- Menüdetails hinzugefügt
+
+03.06.2013:
+- versteckte Features hinzugefügt
+
+02.06.2013:
+- Men�details hinzugefügt
+
+25.05.2013:
+- Interrupt hinzugefügt
+- Codebox Beta hinzugefügt
+
+30.04.2013:
+- einige Geschwindigkeitsprobleme behoben
+
+09.04.2013:
+- Bugreport hinzugefügt
+
+23.03.2013:
+- RAM Features hinzugefügt, Befehle "xch" und "xchd"
+
+22.03.2013:
+- RAM hinzugefügt
+
+13.03.2013:
+- Befehle "anl", "orl", "xrl" hinzugefügt
+
+11.03.2013:
+- einige Geschwindigkeitsprobleme behoben
+
+10.03.2013:
+- Geschwindigkeitsregler hinzugefügt
+
+09.03.2013:
+- Tabellen-Funktion hinzugefügt
+
+07.03.2013:
+- Changelog-Fenster hinzugefügt
+
+06.03.2013:
+- Befehl "swap" hinzugefügt
+
+03.03.2013:
+- P1 Mäuseklavier hinzugefügt
+
+28.02.2013:
+- 7-Segment-Anzeige hinzugefügt

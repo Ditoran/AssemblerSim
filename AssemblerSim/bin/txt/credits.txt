@@ -1,0 +1,17 @@
+﻿Credits
+=======
+
+Code: Dominik Jahnke
+Icons: Eclipse contributors
+Syntax-Highlighter: Rob Camick
+Updater: H3R3T1C
+
+Donators:
+=========
+B. Jahnel
+F. Hähnel
+U. Rudolph
+N. Funke
+J. Petzold
+
+AssemblerSim is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.

@@ -1,0 +1,205 @@
+﻿ASSEMBLER Befehlssatz für 8051-Controller
+=========================================
+
+(Gekürzte Form für die wichtigsten Befehle und Infos)
+
+
+Symbole und Abkürzungen
+-----------------------
+
+Operand	 | Bedeutung
+-----------------------------------------
+A        | Akkumulator
+adr      | 8 Bit - Adresse
+B        | Register B
+bit      | Bitadresse im internen RAM
+C        | Carrybit
+#data    | 8 Bit - Konstante
+dptr     | Datenpointregister
+rel      | Sprungmarke
+@Ri      | Adressregister für internes und externes RAM
+Rn       | Register 0 bis 7
+
+
+
+Datentransport
+==============
+
+OPCode |   Operanden   | Beschreibung
+-----------------------------------------------------------------------------
+mov    | Rn, #data     | Direktes Laden eines Registers mit einer Konstanten
+-----------------------------------------------------------------------------
+mov    | A, #data      | Akku direkt mit Konstante laden
+-----------------------------------------------------------------------------
+mov    | adr, #data    | Internen Speicher mit Konstante laden
+-----------------------------------------------------------------------------
+mov    | @R0, #data    | Konstante in RAM laden, R0 bestimmt Zieladresse
+-----------------------------------------------------------------------------
+mov    | dptr, #data   | Konstante in Datenpointer laden (z.B. Tabellenname)
+-----------------------------------------------------------------------------
+mov    | A, Rn         | Kopieren Registerinhalt in den Akku
+-----------------------------------------------------------------------------
+mov    | Rn, A         | Kopieren des Akkuinhaltes in ein Register
+-----------------------------------------------------------------------------
+mov    | Rn, adr       | internen Speicherinhalt in ein Register kopieren
+-----------------------------------------------------------------------------
+mov    | adr, Rn       | Registerinhalt in internen Speicherplatz kopieren
+-----------------------------------------------------------------------------
+mov    | A, adr        | Inhalt von internem Speicherplatz in Akku kopieren
+-----------------------------------------------------------------------------
+mov    | adr, A        | Akkuinhalt in internen Speicher kopieren
+-----------------------------------------------------------------------------
+mov    | A, @R0        | RAM-Inhalt in Akku kopieren, R0 enthält Quelladresse
+-----------------------------------------------------------------------------
+mov    | @R0, A        | Akku in RAM kopieren, R0 enthält Zieladresse
+-----------------------------------------------------------------------------
+mov    | adr, @R0      | Inh. Speicher in anderen kopieren, R0 enthält Quelle
+-----------------------------------------------------------------------------
+mov    | @R0, adr      | Inhalt Speicher in anderen kopieren, R0 enthält Ziel
+-----------------------------------------------------------------------------
+xch    | A, Rn         | Inhalt Register mit Akkuinhalt tauschen
+-----------------------------------------------------------------------------
+xch    | A, @R0        | Inhalt Speicherstelle mit Akkuinhalt tauschen
+-----------------------------------------------------------------------------
+xchd   | A, @R0        | LOW-Nibbles von Speicherstelle und Akku tauschen
+-----------------------------------------------------------------------------
+movc   | A, @A+dptr    | Hole Konstante aus einer Tabelle im EEPROM
+-----------------------------------------------------------------------------
+
+Arithmetische Operationen
+=========================
+
+OPCode |   Operanden   | Beschreibung
+-----------------------------------------------------------------------------
+inc    | A             | Inhalt des Akkus um "1" erhöhen
+-----------------------------------------------------------------------------
+inc    | Rn            | Inhalt des Registers um "1" erhöhen
+-----------------------------------------------------------------------------
+inc    | adr           | Inhalt interne Speicherstelle um "1" erhöhen
+-----------------------------------------------------------------------------
+inc    | @R0           | Inhalt interne Speicherstelle um "1" erhöhen
+-----------------------------------------------------------------------------
+dec    | A             | Inhalt des Akkus um "1" vermindern
+-----------------------------------------------------------------------------
+dec    | Rn            | Inhalt des Registers um "1" vermindern
+-----------------------------------------------------------------------------
+dec    | adr           | Inhalt interne Speicherstelle um "1" vermindern
+-----------------------------------------------------------------------------
+dec    | @R0           | Inhalt interne Speicherstelle um "1" vermindern
+-----------------------------------------------------------------------------
+add    | A, #data      | Addition einer Konstante zum Akkuinhalt
+-----------------------------------------------------------------------------
+add    | A, Rn         | Addition eines Registerinhaltes zum Akkuinhalt
+-----------------------------------------------------------------------------
+add    | A, adr        | Inhalt int. Speicherstelle zum Akku addieren
+-----------------------------------------------------------------------------
+add    | A, @R0        | Inhalt int. Speicherstelle zum Akku addieren
+-----------------------------------------------------------------------------
+clr    | A             | Lösche Akkuinhalt
+-----------------------------------------------------------------------------
+swap   | A             | Vertausche die Nibbles des Akkus
+-----------------------------------------------------------------------------
+mul    | AB            | Multipliziere Akku mit B-Register
+-----------------------------------------------------------------------------
+div    | AB            | Teile Akkuinhalt durch den B-Registerinhalt
+-----------------------------------------------------------------------------
+rl     | A             | Rotiere Akkuinhalt eine Stelle nach links
+-----------------------------------------------------------------------------
+rr     | A             | Rotiere Akkuinhalt eine Stelle nach rechts
+-----------------------------------------------------------------------------
+setb   | bit           | Setze das adressierte Bit auf "1"
+-----------------------------------------------------------------------------
+clr    | bit           | Setze das adressierte Bit auf "0"
+-----------------------------------------------------------------------------
+cpl    | bit           | Komplementiere das adressierte Bit
+-----------------------------------------------------------------------------
+anl    | A, #data      | Bitweise UND-Verknüpfung Konstante und Akku
+-----------------------------------------------------------------------------
+anl    | adr, #data    | Bitweise UND-Verkn. Konstante und Speicherstelle,
+       |               | das Ergebnis steht in der Speicherstelle
+-----------------------------------------------------------------------------
+anl    | A, Rn         | Bitweise UND-Verknüpfung zwischen Akku und Register,
+       |               | Ergebnis im Akku
+-----------------------------------------------------------------------------
+anl    | A, adr        | Bitweise UND-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Akku
+-----------------------------------------------------------------------------
+anl    | adr, A        | Bitweise UND-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Speicher
+-----------------------------------------------------------------------------
+anl    | A, @R0        | Bitweise UND-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Akku
+-----------------------------------------------------------------------------
+orl    | A, #data      | Bitweise ODER-Verknüpfung Konstante und Akku
+-----------------------------------------------------------------------------
+orl    | adr, #data    | Bitweise ODER-Verkn. Konstante und Speicherstelle,
+       |               | das Ergebnis steht in der Speicherstelle
+-----------------------------------------------------------------------------
+orl    | A, Rn         | Bitweise ODER-Verknüpfung zwischen Akku und Register,
+       |               | Ergebnis im Akku
+-----------------------------------------------------------------------------
+orl    | A, adr        | Bitweise ODER-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Akku
+-----------------------------------------------------------------------------
+orl    | adr, A        | Bitweise ODER-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Speicher
+-----------------------------------------------------------------------------
+orl    | A, @R0        | Bitweise ODER-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Akku
+-----------------------------------------------------------------------------
+xrl    | A, #data      | Bitweise XOR-Verknüpfung Konstante und Akku
+-----------------------------------------------------------------------------
+xrl    | adr, #data    | Bitweise XOR-Verkn. Konstante und Speicherstelle,
+       |               | das Ergebnis steht in der Speicherstelle
+-----------------------------------------------------------------------------
+xrl    | A, Rn         | Bitweise XOR-Verknüpfung zwischen Akku und Register,
+       |               | Ergebnis im Akku
+-----------------------------------------------------------------------------
+xrl    | A, adr        | Bitweise XOR-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Akku
+-----------------------------------------------------------------------------
+xrl    | adr, A        | Bitweise XOR-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Speicher
+-----------------------------------------------------------------------------
+xrl    | A, @R0        | Bitweise XOR-Verknüpfung zwischen Akku und
+       |               | Speicherstelle, Ergebnis im Akku
+-----------------------------------------------------------------------------
+
+
+Sprungbefehle
+=============
+
+OPCode |    Operanden    | Beschreibung
+-----------------------------------------------------------------------------
+sjmp   | rel             | relativer Programmsprung im Bereich -128 bis +127
+       |                 | zur nachfolgenden Befehlsadresse
+-----------------------------------------------------------------------------
+jb     | bit, rel        | Springe bei gesetztem Bit
+-----------------------------------------------------------------------------
+jnb    | bit, rel        | Springe bei gelöschtem Bit
+-----------------------------------------------------------------------------
+jz     | rel             | Springe, wenn Akkuinhalt gleich Null
+-----------------------------------------------------------------------------
+jnz    | rel             | Springe, wenn Akkuinhalt ungleich Null
+-----------------------------------------------------------------------------
+djnz   | Rn, rel         | Vermindere Register um Eins und springe, wenn der
+       |                 | Rest ungleich Null
+-----------------------------------------------------------------------------
+djnz   | adr, rel        | Vermindere den Speicherinhalt um Eins und springe,
+       |                 | wenn der Rest ungleich Null
+-----------------------------------------------------------------------------
+cjne   | A, #data, rel   | Vergleiche Akku mit Konstante und springe bei
+       |                 | Ungleichheit
+-----------------------------------------------------------------------------
+cjne   | Rn, #data, rel  | Vergleiche Register mit Konstante und springe bei
+       |                 | Ungleichheit
+-----------------------------------------------------------------------------
+cjne   | @R0, #data, rel | Vergleiche Speicherstelle im RAM mit Konstante und
+       |                 | springe bei Ungleichheit
+-----------------------------------------------------------------------------
+lcall  | Adr16           | Unterprogrammaufruf im 64k-Block
+-----------------------------------------------------------------------------
+ret    |                 | Ende Unterprogramm
+-----------------------------------------------------------------------------
+reti   |                 | Ende ISR
+-----------------------------------------------------------------------------
