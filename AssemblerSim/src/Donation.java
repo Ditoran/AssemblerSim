@@ -36,21 +36,21 @@ public class Donation extends JDialog {
 	cp.setLayout(null);
 
 	JLabel lblVielenDankDass = new JLabel(
-		"<html><center>Vielen Dank, dass Du AssemblerSim unterstützen möchtest.<br />Alle Spenden dienen zur Finanzierung der Website.<br /><br />Bitte wähle zunächst einen Zahungsanbieter aus:</center></html>");
+		"<html><center>Vielen Dank, dass Du AssemblerSim unterst\u00fctzen m\u00f6chtest.<br />Alle Spenden dienen zur Finanzierung der Website.<br /><br />Bitte w\u00e4hle zun\u00e4chst einen Zahungsanbieter aus:</center></html>");
 	lblVielenDankDass.setBounds(10, 11, 356, 78);
 	getContentPane().add(lblVielenDankDass);
 
-	value_1 = new JRadioButton("1€");
+	value_1 = new JRadioButton("1\u20AC");
 	value_1.setBounds(99, 179, 50, 23);
 	value_1.setFocusPainted(false);
 	getContentPane().add(value_1);
 
-	value_2 = new JRadioButton("2€");
+	value_2 = new JRadioButton("2\u20AC");
 	value_2.setBounds(151, 179, 50, 23);
 	value_2.setFocusPainted(false);
 	getContentPane().add(value_2);
 
-	value_3 = new JRadioButton("3€");
+	value_3 = new JRadioButton("3\u20AC");
 	value_3.setBounds(203, 179, 50, 23);
 	value_3.setFocusPainted(false);
 	getContentPane().add(value_3);
