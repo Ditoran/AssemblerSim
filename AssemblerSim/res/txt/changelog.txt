@@ -1,8 +1,9 @@
 ﻿Changelog
 ========= 
-xx.xx.2015
+26.09.2015
 - Letzte Zeichensatzfehler korrigiert
 - Spendenfunktion hinzugefügt
+- Beispiele ins Programm integriert
 
 17.06.2015
 - Anzeigefehler in den Textpanels behoben
