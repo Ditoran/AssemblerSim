@@ -217,8 +217,8 @@ public class BugreportDialog extends JDialog {
 				if (JOptionPane.showConfirmDialog(null,
 						"Die Meldung wurde erfolgreich abgeschickt.\n"+
 						"Ihr wurde die ID #" + id + " zugeteilt. " +
-						"Nach einer PrÃ¼fung wird die Meldung verÃ¶ffentlicht.\n" +
-						"Jetzt im Browser Ã¶ffnen?",
+						"Nach einer Prüfung wird die Meldung veröffentlicht.\n" +
+						"Jetzt im Browser öffnen?",
 						"", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					try {
 						Desktop.getDesktop().browse(new URI("http://assemblersim.de/"+
@@ -288,8 +288,7 @@ public class BugreportDialog extends JDialog {
 					"application/x-www-form-urlencoded");
 			connection.setRequestProperty("Content-Length",
 					String.valueOf(body.length()));
-			OutputStreamWriter writer = new OutputStreamWriter(
-					connection.getOutputStream());
+			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
 			writer.write(body);
 			writer.flush();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(

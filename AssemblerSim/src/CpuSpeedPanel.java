@@ -19,7 +19,8 @@ public class CpuSpeedPanel extends JPanel {
     public CpuSpeedPanel() {
 	long cpuSpeed = System.nanoTime();
 	for (int i = 0; i < 1000000; i++) {
-
+		i++;
+		i--;
 	}
 	cpuSpeed = System.nanoTime() - cpuSpeed;
 	if (cpuSpeed > 1000000) {

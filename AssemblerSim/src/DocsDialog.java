@@ -19,7 +19,7 @@ public class DocsDialog extends JDialog {
 
 	JTextArea helpTextArea = new JTextArea();
 	JScrollPane helpScrollBox = new JScrollPane(helpTextArea);
-	JButton close = new JButton("Schließen");
+	JButton close = new JButton("Schlie\u00dfen");
 
 	public DocsDialog() {
 		setTitle("Befehlssatz");

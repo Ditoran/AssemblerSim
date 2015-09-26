@@ -105,7 +105,7 @@ public class SettingsDialog extends JDialog {
 		helpSetPrintHeader.setToolTipText("<html><div align=\"center\">Diese Option erstellt<br />"
 				+ "auf den Ausdrucken<br />"
 				+ "automatisch Kopf- und<br />"
-				+ "Fußzeilen mit<br />"
+				+ "Fu\u00dfzeilen mit<br />"
 				+ "Seitennummerierung.</div></html>");
 		cp.add(helpSetPrintHeader);
 		

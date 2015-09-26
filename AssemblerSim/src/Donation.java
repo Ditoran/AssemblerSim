@@ -17,9 +17,7 @@ public class Donation extends JDialog {
 
     private static final long serialVersionUID = 4732494351145169728L;
 
-    JToggleButton call2pay;
     JToggleButton paypal;
-    JToggleButton sofort;
     ButtonGroup group;
 
     JRadioButton value_1;
@@ -60,28 +58,6 @@ public class Donation extends JDialog {
 	group.add(value_2);
 	group.add(value_3);
 
-	call2pay = new JToggleButton("");
-	call2pay.setSelectedIcon(new ImageIcon(Donation.class
-		.getResource("/icons/call2pay.png")));
-	call2pay.setRolloverIcon(new ImageIcon(Donation.class
-		.getResource("/icons/call2pay.png")));
-	call2pay.setIcon(new ImageIcon(Donation.class
-		.getResource("/icons/call2pay_grey.png")));
-	call2pay.setBounds(56, 100, 60, 60);
-	getContentPane().add(call2pay);
-	call2pay.setToolTipText("Call2Pay");
-	call2pay.setBorderPainted(false);
-	call2pay.setContentAreaFilled(false);
-	call2pay.setFocusPainted(false);
-	call2pay.setOpaque(false);
-	call2pay.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		paypal.setSelected(false);
-		sofort.setSelected(false);
-	    }
-	});
 
 	paypal = new JToggleButton("");
 	paypal.setSelectedIcon(new ImageIcon(Donation.class
@@ -97,38 +73,8 @@ public class Donation extends JDialog {
 	paypal.setContentAreaFilled(false);
 	paypal.setFocusPainted(false);
 	paypal.setOpaque(false);
-	paypal.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		call2pay.setSelected(false);
-		sofort.setSelected(false);
-	    }
-	});
-
-	sofort = new JToggleButton("");
-	sofort.setSelectedIcon(new ImageIcon(Donation.class
-		.getResource("/icons/sofort.png")));
-	sofort.setRolloverIcon(new ImageIcon(Donation.class
-		.getResource("/icons/sofort.png")));
-	sofort.setIcon(new ImageIcon(Donation.class
-		.getResource("/icons/sofort_grey.png")));
-	sofort.setBounds(262, 100, 60, 60);
-	getContentPane().add(sofort);
-	sofort.setToolTipText("Sofortüberweisung");	
-	sofort.setBorderPainted(false);
-	sofort.setContentAreaFilled(false);
-	sofort.setFocusPainted(false);
-	sofort.setOpaque(false);
-	sofort.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		call2pay.setSelected(false);
-		paypal.setSelected(false);
-	    }
-	});
-
+	paypal.setSelected(true);
+	
 	JButton donate = new JButton("Spenden");
 	donate.setBounds(259, 179, 91, 23);
 	getContentPane().add(donate);
@@ -136,47 +82,31 @@ public class Donation extends JDialog {
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		String url = "";
-		if (call2pay.isSelected()) {
-		    if (value_1.isSelected()) {
-			url = "http://billing.micropayment.de/call2pay/file/?project=ssmblr&amount=100";
-		    } else if (value_2.isSelected()) {
-			url = "http://billing.micropayment.de/call2pay/file/?project=ssmblr&amount=200";
-		    } else if (value_3.isSelected()) {
-			url = "http://billing.micropayment.de/call2pay/file/?project=ssmblr&amount=300";
-		    }
-		} else if (paypal.isSelected()) {
-		    if (value_1.isSelected()) {
-			url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=X7P7JF4T6AYLQ";
-		    } else if (value_2.isSelected()) {
-			url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UXSJZBRPAWYU6";
-		    } else if (value_3.isSelected()) {
-			url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7P4U7GFZ4GBMS";
-		    }
-		} else if (sofort.isSelected()) {
-		    if (value_1.isSelected()) {
-			url = "http://billing.micropayment.de/sofort/file/?project=ssmblr&amount=100";
-		    } else if (value_2.isSelected()) {
-			url = "http://billing.micropayment.de/sofort/file/?project=ssmblr&amount=200";
-		    } else if (value_3.isSelected()) {
-			url = "http://billing.micropayment.de/sofort/file/?project=ssmblr&amount=300";
-		    }
-		}
-		if (url.length() > 0) {
-		    try {
-			Desktop.getDesktop().browse(new URI(url));
-		    } catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		    } catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		    }
-		}
+			String url = "";
+			if (paypal.isSelected()) {
+			    if (value_1.isSelected()) {
+				url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=X7P7JF4T6AYLQ";
+			    } else if (value_2.isSelected()) {
+				url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UXSJZBRPAWYU6";
+			    } else if (value_3.isSelected()) {
+				url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7P4U7GFZ4GBMS";
+			    }
+			}
+			if (url.length() > 0) {
+			    try {
+				Desktop.getDesktop().browse(new URI(url));
+			    } catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			    } catch (URISyntaxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			    }
+			}
 	    }
 	});
 
-	JLabel lblIchMchte = new JLabel("Ich möchte");
+	JLabel lblIchMchte = new JLabel("Ich m\u00f6chte");
 	lblIchMchte.setBounds(23, 183, 70, 14);
 	getContentPane().add(lblIchMchte);
 

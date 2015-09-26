@@ -1,5 +1,9 @@
 ﻿Changelog
 ========= 
+xx.xx.2015
+- Letzte Zeichensatzfehler korrigiert
+- Spendenfunktion hinzugefügt
+
 17.06.2015
 - Anzeigefehler in den Textpanels behoben
 
@@ -7,7 +11,7 @@
 - Debug-Modus: Einzelschritt hinzugefügt
 - Befehle "EQU" und "DATA" hinzugefügt
 - Der linke Rand eines gedruckten Dokuments ist nun breiter
-- Markierte Zeilen können auskommentiert jetzt werden
+- Markierte Zeilen können jetzt auskommentiert werden
 
 26.04.2015
 - Vorbereitungen für Debug-Funktion

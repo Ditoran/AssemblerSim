@@ -16,7 +16,7 @@ public class ChangelogDialog extends JDialog {
 
 	JTextArea changelogScrollBox = new JTextArea();
 	JScrollPane tempScrollBox = new JScrollPane(changelogScrollBox);
-	JButton close = new JButton("Schließen");
+	JButton close = new JButton("Schlie\u00dfen");
 
 	public ChangelogDialog() {
 		setTitle("Changelog");
