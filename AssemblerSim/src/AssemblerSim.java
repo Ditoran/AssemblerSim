@@ -596,7 +596,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 						int response = JOptionPane.showConfirmDialog(
 								null,
 								f.getName()
-										+ " existiert bereits. &Uumlberschreiben?",
+										+ " existiert bereits. \u00DCberschreiben?",
 								"Fortfahren", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE);
 						if (response == JOptionPane.NO_OPTION) {
@@ -902,14 +902,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		loadNewSamples.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					codebox.read(
-							new FileReader(this.getClass()
-									.getResource("/samples/sample1.asm")
-									.getFile()), "");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				
 			}
 		});
 		samplesmenu.add(loadNewSamples);
