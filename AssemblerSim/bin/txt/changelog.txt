@@ -1,5 +1,8 @@
 ﻿Changelog
 ========= 
+13.10.2016
+- Debug-Funktion aktiviert
+
 26.09.2015
 - Letzte Zeichensatzfehler korrigiert
 - Spendenfunktion hinzugefügt

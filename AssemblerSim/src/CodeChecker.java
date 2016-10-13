@@ -46,7 +46,7 @@ public class CodeChecker {
 			    }
 			}
 		    }
-		    System.out.println(this.source[i][0] + " " + this.source[i][1] + " " + this.source[i][2] + " " + this.source[i][3]);
+		    //System.out.println(this.source[i][0] + " " + this.source[i][1] + " " + this.source[i][2] + " " + this.source[i][3]);
 		}
 		this.validCode = true;
 

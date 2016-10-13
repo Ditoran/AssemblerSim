@@ -93,7 +93,11 @@ import eastereggs.TrollingWindow;
  * 
  *         To Do:
  * 
- *         -pop -push -mehrzeilige Tabellen -im debug line marker einfügen
+ *         -push
+ *         -pop
+ *         -mehrzeilige Tabellen
+ *         -im debug line marker einfügen
+ *         -cloud upload
  * 
  ****************************************************************/
 
@@ -3249,6 +3253,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 					zeileunterprogramm); // externes Auslesen der Zeile
 
 			synchronized (thread1) {
+				codebox.setLineHighlight(zeileunterprogramm + 1);
+				codebox.setCaretLine(zeileunterprogramm + 1);
 				while (waitingprog) {
 					try {
 						thread1.sleep(1);
@@ -3900,7 +3906,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 
 				synchronized (thread1) {
 
-					//codebox.setLineHighlight(i + 1);
+					codebox.setLineHighlight(i + 1);
+					codebox.setCaretLine(i + 1);
 					while (waitingprog) {
 						try {
 							thread1.sleep(1);
