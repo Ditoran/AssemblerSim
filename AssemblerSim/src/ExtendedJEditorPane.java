@@ -43,9 +43,7 @@ public class ExtendedJEditorPane extends JEditorPane {
 		int lineCounter = 0;
 		int i = 1;
 		for (i=i; lineCounter<line && i<paneText.length; i++) {
-			System.out.println("i: " + i);
 			if(paneText[i]=='\n'){
-				System.out.println("found new line");
 				lineCounter++;
 			}
 		}
@@ -63,20 +61,7 @@ public class ExtendedJEditorPane extends JEditorPane {
 		// code
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		/*
-		 * Point carretPos = this.getCaret().getMagicCaretPosition(); int
-		 * carretY; if (carretPos == null) { carretY = 0; } else { carretY =
-		 * carretPos.y; } g.setColor(Color.CYAN); g.fillRect(this.getX(),
-		 * carretY, this.getX()+this.getWidth(), 18);
-		 * 
-		 * int caretPosition = this.getCaretPosition(); Element root =
-		 * this.getDocument().getDefaultRootElement();
-		 * 
-		 * int row = root.getElementIndex( caretPosition ) + 1;
-		 * System.out.println(row);
-		 */
-
-		g.setColor(Color.CYAN);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(this.getX(), (this.highlightedLine - 1) * 17 + 1, this.getX() + this.getWidth(), 18);
 		g.setColor(backgroundColor);
 

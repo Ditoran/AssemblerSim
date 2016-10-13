@@ -96,7 +96,6 @@ import eastereggs.TrollingWindow;
  *         -push
  *         -pop
  *         -mehrzeilige Tabellen
- *         -im debug line marker einfügen
  *         -cloud upload
  * 
  ****************************************************************/
