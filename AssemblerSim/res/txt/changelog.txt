@@ -2,6 +2,8 @@
 ========= 
 13.10.2016
 - Debug-Funktion aktiviert
+ 	- Line Highlighter
+ 	- Schrittweises Ausführen des Codes
 
 26.09.2015
 - Letzte Zeichensatzfehler korrigiert
