@@ -2,7 +2,9 @@ package de.assemblersim.application;
 import java.awt.Image;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -27,24 +29,26 @@ public class Splash {
 		Icon splashImage;
 		DateFormat dateFormat = new SimpleDateFormat("MMdd");
 		Date date = new Date();
+		
 		int day = Integer.parseInt(dateFormat.format(date));
+		Date advent = getFirstAdvent();
 		if (day >= 1029 && day <= 1101) {
 			// Halloween
 			splashImage = new ImageIcon(this.getClass().getResource(
 					"/images/splash_halloween.jpg"));
-		} else if (day >= 1129 && day < 1206) {
+		} else if (day >= 1127 && day < 1204) {
 			// 1. Advent
 			splashImage = new ImageIcon(this.getClass().getResource(
 					"/images/splash_1_advent.jpg"));
-		} else if (day >= 1206 && day < 1213) {
+		} else if (day >= 1204 && day < 1211) {
 			// 2. Advent
 			splashImage = new ImageIcon(this.getClass().getResource(
 					"/images/splash_2_advent.jpg"));
-		} else if (day >= 1213 && day < 1220) {
+		} else if (day >= 1211 && day < 1218) {
 			// 3. Advent
 			splashImage = new ImageIcon(this.getClass().getResource(
 					"/images/splash_3_advent.jpg"));
-		} else if (day >= 1220 && day < 1224) {
+		} else if (day >= 1218 && day < 1224) {
 			// 4. Advent
 			splashImage = new ImageIcon(this.getClass().getResource(
 					"/images/splash_4_advent.jpg"));
@@ -71,6 +75,16 @@ public class Splash {
 
 	}
 
+	private Date getFirstAdvent(){
+		Calendar cal = new GregorianCalendar();
+		System.out.println("heute: " + cal.get(Calendar.DATE));
+		cal.set(cal.get(Calendar.YEAR), Calendar.DECEMBER, 24);
+		while(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+			cal.add(Calendar.DAY_OF_WEEK, -1);
+		cal.add(Calendar.DAY_OF_WEEK, -21);
+		return cal.getTime();
+	}
+	
 	public static void main(String[] args) {
 		new Splash();
 	}
