@@ -559,7 +559,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			}
 		});
 		final JMenuItem openFromCloud = new JMenuItem("Cloud");
-		open.add(openFromCloud);
+		// open.add(openFromCloud); //TODO: Enable it again
 		openFromCloud.setIcon(new ImageIcon(this.getClass().getResource("/icons/cloud.gif")));
 		openFromCloud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
