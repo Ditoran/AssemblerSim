@@ -33,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.URI;
@@ -279,7 +280,24 @@ public class AssemblerSim extends JFrame implements Runnable {
 	public AssemblerSim(String title) {
 		// Frame-Initialisierung
 		super(title);
-		// new ExampleManager();
+
+		// ============================================================
+		try {
+			InputStream is = getClass()
+					.getResourceAsStream(Splash.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			StringBuffer sb = new StringBuffer();
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		// ============================================================
+
 		File jarFile;
 		try {
 			jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
