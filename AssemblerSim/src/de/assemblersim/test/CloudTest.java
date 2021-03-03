@@ -7,7 +7,7 @@ import java.awt.SplashScreen;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.assemblersim.application.Cloud;
+import de.assemblersim.application.cloud.Cloud;
 
 public class CloudTest {
 	
@@ -31,6 +31,11 @@ public class CloudTest {
 	@Test
 	public void testIsLoggedIn() {
 		assertTrue(cloud.isLoggedIn());
+	}
+	
+	@Test
+	public void testInitialize(){
+		fail();
 	}
 
 }

@@ -1,4 +1,5 @@
 package de.assemblersim.application;
+
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -74,6 +75,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import de.assemblersim.application.cloud.Cloud;
+import de.assemblersim.application.cloud.CloudFile;
+import de.assemblersim.application.cloud.CloudFileChooser;
 import de.assemblersim.application.display.Display;
 import de.assemblersim.application.easteregg.TrollingWindow;
 
@@ -267,7 +271,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	private JLabel label_speed_text = new JLabel();
 	private JLabel label_ram = new JLabel();
 	private JLabel label_currentcell = new JLabel();
-	private JTable table = new JTable(ramdata,
+	private JTable ramTable = new JTable(ramdata,
 			new String[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" });
 
 	Container cp;
@@ -275,17 +279,13 @@ public class AssemblerSim extends JFrame implements Runnable {
 	public AssemblerSim(String title) {
 		// Frame-Initialisierung
 		super(title);
-
+		// new ExampleManager();
 		File jarFile;
 		try {
 			jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
 		} catch (Exception e) {
 			return;
 		}
-
-		/*
-		 * is it a jar file? error logger: in jar to file, in sdk to console
-		 */
 		if (jarFile.getName().endsWith(".jar")) {
 			try {
 				System.setErr(new PrintStream(new FileOutputStream(System.getProperty("user.dir") + "/error.log")));
@@ -310,6 +310,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 			FileWriter fr = new FileWriter("res/settings.ini");
 			BufferedWriter bw = new BufferedWriter(fr);
 			props.store(bw, null);
+		} catch (FileNotFoundException e1) {
+			writeLog("Settings file not found");
 		} catch (Exception e1) {
 			writeLog(e1.getMessage());
 			e1.printStackTrace();
@@ -357,9 +359,6 @@ public class AssemblerSim extends JFrame implements Runnable {
 		codeboxScrollPane.setBounds(32, 40, 290, 237);
 		cp.add(codeboxScrollPane);
 
-		// TODO: Highlight line debug
-		// codebox.setText("hsdfjhdjfdsfsad\ndsfadsfdsf\ndsfasdgagdfgdfgafd\nsfgfdagadfg");
-		// codebox.setLineHighlight(2);
 		// restores text after restart
 		File f = new File(".temprestart");
 		if (f.exists()) {
@@ -546,7 +545,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		openFromCloud.setIcon(new ImageIcon(this.getClass().getResource("/icons/cloud.gif")));
 		openFromCloud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if (Cloud.getInstance().isLoggedIn()) {
+				if (!Cloud.getInstance().isLoggedIn()) {
 					JPanel panel = new JPanel(new BorderLayout(5, 5));
 
 					JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
@@ -567,23 +566,16 @@ public class AssemblerSim extends JFrame implements Runnable {
 					cloud.login(username.getText(), String.valueOf(password.getPassword()));
 				}
 
-				JFileChooser filechooser = new JFileChooser("res/cloud/");
-				filechooser.setAcceptAllFileFilterUsed(false);
-				filechooser.addChoosableFileFilter(new FileNameExtensionFilter("Assembler File (.asm)", "asm"));
-				filechooser.addChoosableFileFilter(new FileNameExtensionFilter("Ride IDE File (.a51)", "a51"));
-				filechooser.showOpenDialog(null);
+				CloudFileChooser chooser = new CloudFileChooser();
 
-				try {
-					if (filechooser.getSelectedFile() != null) {
-						filepath = filechooser.getSelectedFile().getPath();
-						filename = filechooser.getSelectedFile().getName();
-						System.out.println(filechooser.getSelectedFile());
-						codebox.read(new FileReader(filechooser.getSelectedFile()), "");
-						setTitle(filechooser.getSelectedFile().getName() + " | AssemblerSim");
-						undomgr.clearQueue();
-					}
-				} catch (IOException e) {
-					writeLog(e.getMessage());
+				chooser.showOpenDialog();
+				CloudFile selectedFile = chooser.getSelectedFile();
+				if (selectedFile != null) {
+					// filepath = chooseopen.getSelectedFile().getPath();
+					filename = selectedFile.getTitle();
+					codebox.setText(selectedFile.getContent());
+					setTitle(selectedFile.getTitle() + " | AssemblerSim");
+					undomgr.clearQueue();
 				}
 			}
 		});
@@ -700,7 +692,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/7-Segment-Anzeige Zähler mit DB.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/7-Segment-Anzeige Zähler mit DB.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -715,7 +707,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/7-Segment-Anzeige Zähler rückwärts mit DB.asm"),
+							getClass().getResourceAsStream("/samples/7-Segment-Anzeige Zähler rückwärts mit DB.asm"),
 							"UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
@@ -731,7 +723,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(
-							new InputStreamReader(getClass().getResourceAsStream("samples/BCD.asm"), "UTF-8"));
+							new InputStreamReader(getClass().getResourceAsStream("/samples/BCD.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -746,7 +738,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Counter Display.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Counter Display.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -761,7 +753,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Display eigenes Zeichen.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Display eigenes Zeichen.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -776,7 +768,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Displayansteuerung 1.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Displayansteuerung 1.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -791,7 +783,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(
-							new InputStreamReader(getClass().getResourceAsStream("samples/Drückspiel.asm"), "UTF-8"));
+							new InputStreamReader(getClass().getResourceAsStream("/samples/Drückspiel.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -806,7 +798,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Fibonacci-Zahlen.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Fibonacci-Zahlen.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -821,7 +813,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(
-							new InputStreamReader(getClass().getResourceAsStream("samples/Interrupt 1.asm"), "UTF-8"));
+							new InputStreamReader(getClass().getResourceAsStream("/samples/Interrupt 1.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -836,7 +828,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(
-							new InputStreamReader(getClass().getResourceAsStream("samples/Interrupt 2.asm"), "UTF-8"));
+							new InputStreamReader(getClass().getResourceAsStream("/samples/Interrupt 2.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -851,7 +843,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Lauflicht mit Stop.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Lauflicht mit Stop.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -866,7 +858,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Potentiometer.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Potentiometer.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -881,7 +873,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Timer LED Zähler.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Timer LED Zähler.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -896,7 +888,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(
-							new InputStreamReader(getClass().getResourceAsStream("samples/Timer Uhr.asm"), "UTF-8"));
+							new InputStreamReader(getClass().getResourceAsStream("/samples/Timer Uhr.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -911,7 +903,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Zahlen sortieren.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Zahlen sortieren.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -926,7 +918,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					BufferedReader br = new BufferedReader(new InputStreamReader(
-							getClass().getResourceAsStream("samples/Zahlenspeicher.asm"), "UTF-8"));
+							getClass().getResourceAsStream("/samples/Zahlenspeicher.asm"), "UTF-8"));
 					codebox.read(br, "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -940,7 +932,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 		loadNewSamples.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				JOptionPane.showMessageDialog(null, "Die Funktion ist noch nicht verfügbar", "",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		samplesmenu.add(loadNewSamples);
@@ -1107,7 +1100,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 						ramdata[k][l] = "";
 					}
 				}
-				table.repaint();
+				ramTable.repaint();
 
 			}
 		});
@@ -1636,20 +1629,20 @@ public class AssemblerSim extends JFrame implements Runnable {
 		label_currentcell.setText("");
 		cp.add(label_currentcell);
 
-		table.setBounds(32, 440, 600, 80);
-		table.setBackground(null);
-		table.setFocusable(false);
-		table.setRowSelectionAllowed(false);
-		table.setEnabled(false);
-		table.repaint();
-		cp.add(table);
-		table.setBorder(BorderFactory.createLineBorder(null, 1));
-		table.addMouseMotionListener(new MouseMotionAdapter() {
+		ramTable.setBounds(32, 440, 600, 80);
+		ramTable.setBackground(null);
+		ramTable.setFocusable(false);
+		ramTable.setRowSelectionAllowed(false);
+		ramTable.setEnabled(false);
+		ramTable.repaint();
+		cp.add(ramTable);
+		ramTable.setBorder(BorderFactory.createLineBorder(null, 1));
+		ramTable.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseMoved(MouseEvent e) {
-				int row = table.rowAtPoint(e.getPoint());
-				int column = table.columnAtPoint(e.getPoint());
-				table.setRowSelectionInterval(row, row);
-				table.setColumnSelectionInterval(row, column);
+				int row = ramTable.rowAtPoint(e.getPoint());
+				int column = ramTable.columnAtPoint(e.getPoint());
+				ramTable.setRowSelectionInterval(row, row);
+				ramTable.setColumnSelectionInterval(row, column);
 				label_currentcell.setText("Aktuell: " + ramcellnames[row][column]);
 			}
 		});
@@ -2040,49 +2033,49 @@ public class AssemblerSim extends JFrame implements Runnable {
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R1":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R2":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R3":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R4":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R5":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R6":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "@R7":
 			x = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) % 16;
 			y = (Integer.parseInt(register[Integer.parseInt(ziel.substring(2))].getText()) - 48) / 16;
 			ramdata[y][x] = wert;
-			table.repaint();
+			ramTable.repaint();
 			break;
 		case "A":
 			A.setText(wert);
@@ -2186,7 +2179,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			int y = (Integer.parseInt(register[Integer.parseInt(runArgument[2].substring(2))].getText()) - 48) / 16;
 			wert = Integer.parseInt(ramdata[y][x]);
 			ramdata[y][x] = A.getText();
-			table.repaint();
+			ramTable.repaint();
 		} else if (runArgument[2].charAt(0) == 'R') {
 			wert = Integer.parseInt(register[Integer.parseInt(String.valueOf(runArgument[2].charAt(1)))].getText());
 			register[Integer.parseInt(String.valueOf(runArgument[2].charAt(1)))].setText(A.getText());
@@ -2217,7 +2210,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		resultSpeicher = speicherNibble1 + akkuNibble2;
 		A.setText(Integer.toString(Integer.parseInt(resultAkku, 2)));
 		ramdata[y][x] = Integer.toString(Integer.parseInt(resultSpeicher, 2));
-		table.repaint();
+		ramTable.repaint();
 	}
 
 	public void functionSetb(String[] runArgument) {
@@ -2884,7 +2877,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			int wert = Integer.parseInt(ramdata[y][x]) + 1;
 			wert = digitWatcherRam(wert);
 			ramdata[y][x] = Integer.toString(wert);
-			table.repaint();
+			ramTable.repaint();
 		}
 	}
 
@@ -2908,7 +2901,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			int wert = Integer.parseInt(ramdata[y][x]) - 1;
 			wert = digitWatcherRam(wert);
 			ramdata[y][x] = Integer.toString(wert);
-			table.repaint();
+			ramTable.repaint();
 		}
 	}
 
@@ -3130,7 +3123,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 				zeileunterprogramm = functionJz(sourceunterprogramm, temp, zeileunterprogramm);
 				break;
 			case "jnz":
-				zeileunterprogramm = functionJz(sourceunterprogramm, temp, zeileunterprogramm);
+				zeileunterprogramm = functionJnz(sourceunterprogramm, temp, zeileunterprogramm);
 				break;
 			case "jb":
 				zeileunterprogramm = functionJb(source, temp, zeileunterprogramm);
@@ -3260,7 +3253,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 				currentLine = functionJz(source, temp, currentLine);
 				break;
 			case "jnz":
-				currentLine = functionJz(source, temp, currentLine);
+				currentLine = functionJnz(source, temp, currentLine);
 				break;
 			case "jb":
 				currentLine = functionJb(source, temp, currentLine);
@@ -3389,7 +3382,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 				currentLine = functionJz(source, temp, currentLine);
 				break;
 			case "jnz":
-				currentLine = functionJz(source, temp, currentLine);
+				currentLine = functionJnz(source, temp, currentLine);
 				break;
 			case "jb":
 				currentLine = functionJb(source, temp, currentLine);
@@ -3541,6 +3534,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		Date currentTime = new Date();
 		line = formatter.format(currentTime) + " | " + line;
 		logfile.add(0, line);
+		System.err.println(line);
 	}
 
 	private void addSysTray() {
@@ -3557,7 +3551,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 		SystemTray tray = SystemTray.getSystemTray();
 
 		// Create a popup menu components
-		MenuItem aboutItem = new MenuItem("Ãœber");
+		MenuItem aboutItem = new MenuItem("\u00dcber");
 		MenuItem start = new MenuItem("Starte Programm");
 		MenuItem stop = new MenuItem("Stoppe Programm");
 		MenuItem exitItem = new MenuItem("Beenden");
@@ -3619,8 +3613,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 
 	public void digitWatcherRegister(int whichRegister) {
 		/*
-		 * Throwable t = new Throwable(); StackTraceElement[] ste =
-		 * t.getStackTrace(); for (int i = 0; i < ste.length; i++) {
+		 * Throwable t = new Throwable(); StackTraceElement[] ste = t.getStackTrace();
+		 * for (int i = 0; i < ste.length; i++) {
 		 * System.out.println(ste[i].getMethodName()); }
 		 */
 
@@ -3636,8 +3630,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 
 	public void digitWatcherA() {
 		/*
-		 * Throwable t = new Throwable(); StackTraceElement[] ste =
-		 * t.getStackTrace(); for (int i = 0; i < ste.length; i++) {
+		 * Throwable t = new Throwable(); StackTraceElement[] ste = t.getStackTrace();
+		 * for (int i = 0; i < ste.length; i++) {
 		 * System.out.println(ste[i].getMethodName()); }
 		 */
 
@@ -3650,8 +3644,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 
 	public void digitWatcherB() {
 		/*
-		 * Throwable t = new Throwable(); StackTraceElement[] ste =
-		 * t.getStackTrace(); for (int i = 0; i < ste.length; i++) {
+		 * Throwable t = new Throwable(); StackTraceElement[] ste = t.getStackTrace();
+		 * for (int i = 0; i < ste.length; i++) {
 		 * System.out.println(ste[i].getMethodName()); }
 		 */
 
@@ -3773,6 +3767,9 @@ public class AssemblerSim extends JFrame implements Runnable {
 					break;
 				case "jz":
 					i = functionJz(source, temp, i);
+					break;
+				case "jnz":
+					i = functionJnz(source, temp, i);
 					break;
 				case "jb":
 					i = functionJb(source, temp, i);
