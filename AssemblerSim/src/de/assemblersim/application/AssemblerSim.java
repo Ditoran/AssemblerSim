@@ -117,7 +117,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	private boolean running = true; // Wenn false, bricht Thread ab
 	int loading = 0;
 
-	private String programversion = "20150926";
+	private String programversion = "20210303";
 	private String filepath = System.getProperty("user.dir");
 	private String filename = "";
 	String buffer = "";
