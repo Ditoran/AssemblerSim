@@ -1,9 +1,10 @@
 ﻿Changelog
 ========= 
-13.10.2016
-- Debug-Funktion aktiviert
- 	- Line Highlighter
- 	- Schrittweises Ausführen des Codes
+08.04.2021
+- Workaround für unsichtbaren RAM-Button 
+
+03.03.2021
+- Jnz Bug gefixt
 
 26.09.2015
 - Letzte Zeichensatzfehler korrigiert

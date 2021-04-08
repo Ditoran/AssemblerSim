@@ -117,7 +117,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 	private boolean running = true; // Wenn false, bricht Thread ab
 	int loading = 0;
 
-	private String programversion = "20210303";
+	private String programversion = "20210408";
 	private String filepath = System.getProperty("user.dir");
 	private String filename = "";
 	String buffer = "";
@@ -244,6 +244,8 @@ public class AssemblerSim extends JFrame implements Runnable {
 	private JLabel jLabel_poti = new JLabel();
 	private JButton jButton_debug = new JButton();
 	private JButton jButton_ram = new JButton();
+	private JCheckBoxMenuItem viewRam;
+	private JCheckBoxMenuItem viewRegisters;
 
 	JButton toolbarResumeDebug;
 
@@ -654,7 +656,7 @@ public class AssemblerSim extends JFrame implements Runnable {
 			}
 		});
 		final JMenuItem saveInCloud = new JMenuItem("Cloud");
-		save.add(saveInCloud);
+		// save.add(saveInCloud); //TODO: Enable it again
 		saveInCloud.setIcon(new ImageIcon(this.getClass().getResource("/icons/cloud.gif")));
 		saveInCloud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1105,6 +1107,26 @@ public class AssemblerSim extends JFrame implements Runnable {
 				}
 			}
 		});
+		viewRam = new JCheckBoxMenuItem("RAM");
+		view.add(viewRam);
+		viewRam.setSelected(false);
+		viewRam.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
+		viewRam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				jButton_ram.doClick();
+			}
+		});
+
+		viewRegisters = new JCheckBoxMenuItem("Register");
+		view.add(viewRegisters);
+		viewRegisters.setSelected(false);
+		viewRegisters.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
+		viewRegisters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				jButton_debug.doClick();
+			}
+		});
+
 		// Tools Menue
 		JMenu tools = new JMenu("Werkzeuge");
 		mbar.add(tools);
@@ -1719,10 +1741,12 @@ public class AssemblerSim extends JFrame implements Runnable {
 					setSize(frameWidth, getHeight());
 					jButton_debug.setText("\u300A");
 					jButton_debug.setBounds(848, 128, 25, 81);
+					viewRegisters.setSelected(true);
 				} else {
 					setSize(frameWidth - 200, getHeight());
 					jButton_debug.setText("\u300B");
 					jButton_debug.setBounds(648, 128, 25, 81);
+					viewRegisters.setSelected(false);
 				}
 			}// end of if-else
 		});
@@ -1732,10 +1756,12 @@ public class AssemblerSim extends JFrame implements Runnable {
 					setSize(getWidth(), frameHeight);
 					jButton_ram.setText("\uFE3E");
 					jButton_ram.setBounds(250, 378, 81, 25);
+					viewRam.setSelected(false);
 				} else {
 					setSize(getWidth(), frameHeight + 150);
 					jButton_ram.setText("\uFE3D");
 					jButton_ram.setBounds(250, 528, 81, 15);
+					viewRam.setSelected(true);
 				}
 			}// end of if-else
 		});

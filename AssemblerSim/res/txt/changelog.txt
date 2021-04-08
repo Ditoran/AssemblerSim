@@ -1,5 +1,8 @@
 ﻿Changelog
 ========= 
+08.04.2021
+- Workaround für unsichtbaren RAM-Button 
+
 03.03.2021
 - Jnz Bug gefixt
 
