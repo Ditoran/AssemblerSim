@@ -13,5 +13,6 @@ F. Hähnel
 U. Rudolph
 N. Funke
 J. Petzold
+D. Werner
 
 AssemblerSim is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
